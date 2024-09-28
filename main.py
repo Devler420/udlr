@@ -1,9 +1,11 @@
 # Up Down Left Right - Practice Program
 # Required Internet on this Branch (gTTS)
+# install gtts, pydub, ffmpeg
 #TODO: Voice Engine + Math Interuption
 
 import random
 from gtts import gTTS
+from pydub import AudioSegment
 import os
 
 def draw_final_answer(total_command):
@@ -141,7 +143,12 @@ def read_out_load(command_list):
    # print(final_string)
    tts = gTTS(text=final_string, lang='en')
    tts.save("udlr_output.mp3")
-   os.system("start udlr_output.mp3")
+
+   audio = AudioSegment.from_mp3("udlr_output.mp3")
+   slowed_audio = audio.speedup(playback_speed=0.75)
+   slowed_audio.export("slowed_udlr_output.mp3", format="mp3")
+
+   os.system("start slowed_udlr_output.mp3")
 
 # START
 
