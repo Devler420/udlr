@@ -1,6 +1,6 @@
 # Up Down Left Right - Practice Program
 # Required Internet on this Branch (gTTS)
-#TODO: Voice Engine + Math Interuption
+# CopyRight by Panupong Utvichai
 
 import random
 from gtts import gTTS
@@ -153,7 +153,7 @@ print("START ULDR")
 
 total_command = []
 x = 1
-while x <= 10: # Change Total Commands here
+while x <= 20: # Change Total Commands here
     start_direction = random.choices(choices_start_direction)
     if (start_direction[0] == "updown") :
         alphabet1 = random.choice(choices_up_down)
