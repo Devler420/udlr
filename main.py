@@ -1,5 +1,5 @@
 # Up Down Left Right - Practice Program
-
+# Required Internet on this Branch (gTTS)
 #TODO: Voice Engine + Math Interuption
 
 import random
@@ -107,7 +107,7 @@ def compute_answer(command, answer_block):
 
 def read_out_load(command_list):
    total_number_to_ask = random.randint(2,5)
-   print("total num to ask: " + str(total_number_to_ask))
+   # print("total num to ask: " + str(total_number_to_ask))
    total_command_count = len(command_list)
 
    list_of_position_to_ask = set()
@@ -118,8 +118,8 @@ def read_out_load(command_list):
       else:
          i -= 1
       
-   print("list of position to ask: ")
-   print(list_of_position_to_ask)
+   # print("list of position to ask: ")
+   # print(list_of_position_to_ask)
    replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
    final_string = "UDLR Five Four Three Two One "
 
@@ -137,8 +137,8 @@ def read_out_load(command_list):
       count_command += 1
    print("Math Question List: ")
    print(math_question_list)
-   print("final_string = ")
-   print(final_string)
+   # print("final_string = ")
+   # print(final_string)
    tts = gTTS(text=final_string, lang='en')
    tts.save("udlr_output.mp3")
    os.system("start udlr_output.mp3")
@@ -172,6 +172,6 @@ while x <= 10: # Change Total Commands here
     x += 1
     
 print(total_command)
-print(len(total_command))
+print("Total Command: " + str(len(total_command)))
 read_out_load(total_command)
 draw_final_answer(total_command)
