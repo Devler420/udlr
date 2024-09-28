@@ -3,6 +3,7 @@
 #TODO: Voice Engine + Math Interuption
 
 import random
+import pyttsx3
 
 def draw_final_answer(total_command):
   block = [
@@ -12,8 +13,14 @@ def draw_final_answer(total_command):
     ["L0 R0", "L0 R0", "L0 R0", "L0 R0"]
   ]
 
+#   block = [
+#     ["00", "01", "02", "03"],
+#     ["10", "11", "12", "13"],
+#     ["20", "21", "22", "23"],
+#     ["30", "31", "32", "33"]
+#   ]
+
   for command in total_command:
-    print("command: " + command)
     compute_answer(command, block)
 
   count = 0
@@ -30,35 +37,32 @@ def compute_answer(command, answer_block):
    y_value = 0
 
    # BASED on Main Direction (1st Alphabet)
-   if (command[0] == "U" or command[0] == "D"):
+   if command[0] in {"U", "D"}:
       # Start Vertically
       if (command[0] == "U"):
          x_value = 0
       else:
          x_value = 3
 
-      if (command[1] == "U" and command[0] == "U"):
+      if (command[1] == command[0]):
          x_value += 0
-      elif (command[1] == "D" and command[0] == "D"):
-         x_value += 0
-      elif (command[1] == "U" and x_value == 3):
-         x_value -= 1
-      else:
+      elif (command[0] == "U" and command[1] == "D"):
          x_value += 1
+      else:
+         x_value -= 1
 
+      # Next Horizontally
       if (command[2] == "L"):
          y_value = 0
       else:
          y_value = 3
 
-      if (command[3] == "L" and command[2] == "L"):
+      if (command[3] == command[2]):
          y_value += 0
-      elif (command[3] == "R" and command[2] == "R"):
-         y_value += 0
-      elif (command[3] == "L" and y_value == 3):
-         y_value -= 1
-      else:
+      elif (command[2] == "L" and command[3] == "R"):
          y_value += 1
+      else:
+         y_value -= 1
 
    else:
       # Start Horizontally
@@ -67,30 +71,27 @@ def compute_answer(command, answer_block):
       else:
          y_value = 3
 
-      if (command[1] == "L" and command[0] == "L"):
+      if (command[1] == command[0]):
          y_value += 0
-      elif (command[1] == "R" and command[0] == "R"):
-         y_value += 0
-      elif (command[1] == "L" and y_value == 3):
-         y_value -= 1
-      else:
+      elif (command[0] == "L" and command[1] == "R"):
          y_value += 1
+      else:
+         y_value -= 1
 
+      # Next Vertically
       if (command[2] == "U"):
          x_value = 0
       else:
          x_value = 3
 
-      if (command[3] == "U" and command[2] == "U"):
+      if (command[3] == command[2]):
          x_value += 0
-      elif (command[3] == "D" and command[2] == "D"):
-         x_value += 0
-      elif (command[3] == "U" and x_value == 3):
-         x_value -= 1
-      else:
+      elif (command[2] == "U" and command[1] == "D"):
          x_value += 1
+      else:
+         x_value -= 1
    
-   print("XY: " + str(x_value) + str(y_value) + " | L/R: " + str(command[4].upper()))
+   # print("XY: " + str(x_value) + str(y_value) + " | L/R: " + str(command[4].upper()))
 
    target_block = answer_block[x_value][y_value]
    hand_to_write = command[4]
@@ -103,12 +104,46 @@ def compute_answer(command, answer_block):
        right_count += 1
    answer_block[x_value][y_value] = "L" + str(left_count) + " R" + str(right_count)
 
+def read_out_loud(command_list):
+   for command in command_list:
+      string_to_read = "".join(transform_to_full_letter(letter) for letter in command)
+      engine.say(string_to_read)
+      engine.runAndWait()
+
+def transform_to_full_letter(single_string):
+   if (single_string == "U"):
+      single_string = "Up"
+      return single_string
+   elif (single_string == "D"):
+      single_string = "Down"
+      return single_string
+   elif (single_string == "L"):
+      single_string = "Left"
+      return single_string
+   elif (single_string == "R"):
+      single_string = "Right"
+      return single_string
+   else:
+      return "Invalid String"
+
 # START
+engine = pyttsx3.init()
+
+# voice sound
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
+
+# voice speed -- Default 200 wpm
+newVoiceRate = 130
+volume = 0.9
+engine.setProperty('volume', volume)
+engine.setProperty('rate', newVoiceRate)
+
 choices_start_direction = ["updown", "leftright"]
 choices_up_down = ["U", "D"]
 choices_left_right = ["L", "R"]
 
-print("random start")
+print("START ULDR")
 
 total_command = []
 x = 1
@@ -132,4 +167,5 @@ while x <= 20:
     
 print(total_command)
 print(len(total_command))
+read_out_loud(total_command)
 draw_final_answer(total_command)
