@@ -164,7 +164,7 @@ def ending_math_game(list_of_numbers):
          ending_question_set.add(randomed_question)
          i += 1
 
-   time.sleep(45) # Waiting for commands to finish
+   time.sleep(60) # Waiting for commands to finish
 
    for question in ending_question_set:
       print(question)
