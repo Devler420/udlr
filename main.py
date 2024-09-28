@@ -5,6 +5,8 @@
 import random
 from gtts import gTTS
 import os
+import pyttsx3
+import time
 
 def draw_final_answer(total_command):
   block = [
@@ -124,7 +126,6 @@ def read_out_load(command_list):
    final_string = "UDLR Five Four Three Two One "
 
    count_command = 1
-   math_question_list = []
    for command in command_list:
       final_string += " | "
       for char in command:
@@ -143,11 +144,51 @@ def read_out_load(command_list):
    tts.save("udlr_output.mp3")
    os.system("start udlr_output.mp3")
 
+def ending_math_game(list_of_numbers):
+   question_list = [
+    "How many numbers in the list are prime numbers?",
+    "Find the sum of all numbers.",
+    "Find the sum of all even numbers.",
+    "Find the sum of all odd numbers.",
+    "Find the sum of all negative numbers.",
+    "Find the sum of all positive numbers.",
+    "Find the product of all numbers."
+]
+   
+   ending_question_set = set()
+   ending_question_set.add("How many numbers are there?")
+   i = 1
+   while i <= 4 : # Number of question here.
+      randomed_question = random.choice(question_list)
+      if randomed_question not in ending_question_set:
+         ending_question_set.add(randomed_question)
+         i += 1
+
+   time.sleep(45) # Waiting for commands to finish
+
+   for question in ending_question_set:
+      print(question)
+      engine.say(question)
+      engine.runAndWait()
+      time.sleep(5)
+
 # START
+engine = pyttsx3.init()
+
+# voice sound
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
+
+# voice speed -- Default 200 wpm
+newVoiceRate = 130
+volume = 0.9
+engine.setProperty('volume', volume)
+engine.setProperty('rate', newVoiceRate)
 
 choices_start_direction = ["updown", "leftright"]
 choices_up_down = ["U", "D"]
 choices_left_right = ["L", "R"]
+math_question_list = []
 
 print("START ULDR")
 
@@ -175,4 +216,5 @@ print(total_command)
 print("Total Command: " + str(len(total_command)))
 read_out_load(total_command)
 draw_final_answer(total_command)
+ending_math_game(math_question_list)
 input("Press Enter to exit...")
