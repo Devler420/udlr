@@ -3,7 +3,8 @@
 #TODO: Voice Engine + Math Interuption
 
 import random
-import pyttsx3
+from gtts import gTTS
+import os
 
 def draw_final_answer(total_command):
   block = [
@@ -104,40 +105,45 @@ def compute_answer(command, answer_block):
        right_count += 1
    answer_block[x_value][y_value] = "L" + str(left_count) + " R" + str(right_count)
 
-def read_out_loud(command_list):
-   for command in command_list:
-      string_to_read = "".join(transform_to_full_letter(letter) for letter in command)
-      engine.say(string_to_read)
-      engine.runAndWait()
+def read_out_load(command_list):
+   total_number_to_ask = random.randint(2,5)
+   print("total num to ask: " + str(total_number_to_ask))
+   total_command_count = len(command_list)
 
-def transform_to_full_letter(single_string):
-   if (single_string == "U"):
-      single_string = "Up"
-      return single_string
-   elif (single_string == "D"):
-      single_string = "Down"
-      return single_string
-   elif (single_string == "L"):
-      single_string = "Left"
-      return single_string
-   elif (single_string == "R"):
-      single_string = "Right"
-      return single_string
-   else:
-      return "Invalid String"
+   list_of_position_to_ask = set()
+   for i in range(total_number_to_ask):
+      position_to_ask = random.randint(1, total_command_count)
+      if (position_to_ask not in list_of_position_to_ask):
+         list_of_position_to_ask.add(position_to_ask)
+      else:
+         i -= 1
+      
+   print("list of position to ask: ")
+   print(list_of_position_to_ask)
+   replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
+   final_string = "UDLR Five Four Three Two One "
+
+   count_command = 1
+   math_question_list = []
+   for command in command_list:
+      final_string += " | "
+      for char in command:
+         final_string += replacement_map[char]
+      if count_command in list_of_position_to_ask:
+         final_string += " "
+         math_question = str(random.randint(-9,9))
+         final_string += math_question
+         math_question_list.append(math_question)
+      count_command += 1
+   print("Math Question List: ")
+   print(math_question_list)
+   print("final_string = ")
+   print(final_string)
+   tts = gTTS(text=final_string, lang='en')
+   tts.save("udlr_output.mp3")
+   os.system("start udlr_output.mp3")
 
 # START
-engine = pyttsx3.init()
-
-# voice sound
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
-
-# voice speed -- Default 200 wpm
-newVoiceRate = 130
-volume = 0.9
-engine.setProperty('volume', volume)
-engine.setProperty('rate', newVoiceRate)
 
 choices_start_direction = ["updown", "leftright"]
 choices_up_down = ["U", "D"]
@@ -147,7 +153,7 @@ print("START ULDR")
 
 total_command = []
 x = 1
-while x <= 20:
+while x <= 10: # Change Total Commands here
     start_direction = random.choices(choices_start_direction)
     if (start_direction[0] == "updown") :
         alphabet1 = random.choice(choices_up_down)
@@ -167,5 +173,5 @@ while x <= 20:
     
 print(total_command)
 print(len(total_command))
-read_out_loud(total_command)
+read_out_load(total_command)
 draw_final_answer(total_command)
