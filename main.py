@@ -119,7 +119,9 @@ def read_out_load(command_list):
       
    print("list of position to ask: ")
    print(list_of_position_to_ask)
-   replacement_map = {'R': 'Right.', 'L': 'Left.', 'U': 'Up.', 'D': 'Down.'} # Remove DOT Here to increase difficulty to HARD MODE
+   # EASY Mode
+   # replacement_map = {'R': 'Right.', 'L': 'Left.', 'U': 'Up.', 'D': 'Down.'} 
+   replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
    final_string = "UDLR Five Four Three Two One "
 
    count_command = 1
