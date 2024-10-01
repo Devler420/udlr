@@ -210,6 +210,11 @@ while x <= 20: # Change Total Commands here
     x += 1
     
 print(total_command)
+counter = 1
+for com in total_command:
+   print(str(counter) + ': ' + com)
+   counter += 1
+
 print("Total Command: " + str(len(total_command)))
 read_out_load(total_command)
 draw_final_answer(total_command)
