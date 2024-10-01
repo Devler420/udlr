@@ -119,7 +119,7 @@ def read_out_load(command_list):
       
    print("list of position to ask: ")
    print(list_of_position_to_ask)
-   replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
+   replacement_map = {'R': 'Right.', 'L': 'Left.', 'U': 'Up.', 'D': 'Down.'} # Remove DOT Here to increase difficulty to HARD MODE
    final_string = "UDLR Five Four Three Two One "
 
    count_command = 1
@@ -161,7 +161,7 @@ def ending_math_game(list_of_numbers):
          ending_question_set.add(randomed_question)
          i += 1
 
-   time.sleep(60) # Waiting for commands to finish
+   time.sleep(90) # Waiting for commands reading to finish
 
    for question in ending_question_set:
       print(question)
