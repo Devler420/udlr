@@ -128,15 +128,15 @@ def read_out_load(command_list):
       for char in command:
          final_string += replacement_map[char]
       if count_command in list_of_position_to_ask:
-         final_string += " "
+         final_string += " | "
          math_question = str(random.randint(-9,9))
          final_string += math_question
          math_question_list.append(math_question)
       count_command += 1
    print("Math Question List: ")
    print(math_question_list)
-   # print("final_string = ")
-   # print(final_string)
+   print("final_string = ")
+   print(final_string)
    tts = gTTS(text=final_string, lang='en')
    tts.save("udlr_output.mp3")
    os.system("start udlr_output.mp3")
