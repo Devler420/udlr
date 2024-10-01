@@ -89,7 +89,7 @@ def compute_answer(command, answer_block):
 
       if (command[3] == command[2]):
          x_value += 0
-      elif (command[2] == "U" and command[1] == "D"):
+      elif (command[2] == "U" and command[3] == "D"):
          x_value += 1
       else:
          x_value -= 1
@@ -109,19 +109,16 @@ def compute_answer(command, answer_block):
 
 def read_out_load(command_list):
    total_number_to_ask = random.randint(2,5)
-   # print("total num to ask: " + str(total_number_to_ask))
+   print("Total num to ask: " + str(total_number_to_ask))
    total_command_count = len(command_list)
 
    list_of_position_to_ask = set()
-   for i in range(total_number_to_ask):
+   while len(list_of_position_to_ask) < total_number_to_ask:
       position_to_ask = random.randint(1, total_command_count)
-      if (position_to_ask not in list_of_position_to_ask):
-         list_of_position_to_ask.add(position_to_ask)
-      else:
-         i -= 1
+      list_of_position_to_ask.add(position_to_ask)
       
-   # print("list of position to ask: ")
-   # print(list_of_position_to_ask)
+   print("list of position to ask: ")
+   print(list_of_position_to_ask)
    replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
    final_string = "UDLR Five Four Three Two One "
 
