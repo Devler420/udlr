@@ -127,8 +127,8 @@ def read_out_load(command_list):
    print("list of position to ask: ")
    print(list_of_position_to_ask)
    # EASY Mode
-   # replacement_map = {'R': 'Right.', 'L': 'Left.', 'U': 'Up.', 'D': 'Down.'} 
-   replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
+   replacement_map = {'R': 'Right.', 'L': 'Left.', 'U': 'Up.', 'D': 'Down.'} 
+   # replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
    final_string = "UDLR Five Four Three Two One "
 
    count_command = 1
@@ -171,8 +171,8 @@ def ending_math_game(list_of_numbers):
          i += 1
 
    # Waiting for commands reading to finish
-   time.sleep(60)
-   # time.sleep(90)
+   # time.sleep(60)
+   time.sleep(90)
 
    for question in ending_question_set:
       print(question)
