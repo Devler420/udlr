@@ -131,6 +131,8 @@ def read_out_load(command_list):
    replacement_map = {'R': 'Right', 'L': 'Left', 'U': 'Up', 'D': 'Down'}
    final_string = "UDLR Five Four Three Two One "
 
+   prevent_duplicate_math_q_set = set()
+
    count_command = 1
    for command in command_list:
       final_string += " | "
@@ -138,9 +140,15 @@ def read_out_load(command_list):
          final_string += replacement_map[char]
       if count_command in list_of_position_to_ask:
          final_string += " | "
-         math_question = str(random.randint(-9,9))
-         final_string += math_question
-         math_question_list.append(math_question)
+         dumb_boolean = True
+         while (dumb_boolean):
+            random_math_question = str(random.randint(-9,9))
+            if random_math_question not in prevent_duplicate_math_q_set:
+               prevent_duplicate_math_q_set.add(random_math_question)
+               dumb_boolean = False
+               final_string += random_math_question
+               math_question_list.append(random_math_question)
+
       count_command += 1
    print("Math Question List: ")
    print(math_question_list)
