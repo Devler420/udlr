@@ -138,7 +138,7 @@ def read_out_load(command_list):
          final_string += replacement_map[char]
       if count_command in list_of_position_to_ask:
          final_string += " | "
-         math_question = str(random.randint(-9,9))
+         math_question = str(random.randint(0,9))
          final_string += math_question
          math_question_list.append(math_question)
       count_command += 1

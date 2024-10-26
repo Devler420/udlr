@@ -142,7 +142,7 @@ def read_out_load(command_list):
          final_string += " | "
          dumb_boolean = True
          while (dumb_boolean):
-            random_math_question = str(random.randint(-9,9))
+            random_math_question = str(random.randint(0,9))
             if random_math_question not in prevent_duplicate_math_q_set:
                prevent_duplicate_math_q_set.add(random_math_question)
                dumb_boolean = False
